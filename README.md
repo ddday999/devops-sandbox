@@ -17,6 +17,7 @@ Includes:
 How it works:
 
 Project starts with help of easy_bot.yaml manifest, its will run in Deployment k3s controller Telegram bot and Script, which simulating nginx log.
+
 ![image](https://github.com/ddday999/devops-sandbox/assets/119918462/10f65f50-8517-44c8-bf21-f6d75c96b0f3)
 ![image](https://github.com/ddday999/devops-sandbox/assets/119918462/ceb1588e-f966-4aa3-884f-e43cd2ea04ce)
 
