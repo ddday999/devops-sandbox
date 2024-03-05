@@ -2,6 +2,7 @@
 
 
 Technologies used: Docker, k3s, Grafana, Loki (Promtail), Prometheus, Gitlab, Gitlab-CI
+
 Languages: Bash, Python
 
 
