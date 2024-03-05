@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: easy-bot-namespace
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: easy-bot-namespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: easy-bot
+          image: ddday999/easy_bot:0.0.16
+          imagePullPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-pod-deployment
+  namespace: easy-bot-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-pod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: my-pod
+    spec:
+      containers:
+      - name: my-pod-container
+        image: ddday999/action_simulator:0.0.9
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: app-volume
+          mountPath: /home/day9/openai
+      volumes:
+      - name: app-volume
+        hostPath: 
+          path: /home/day9/openai
+          type: Directory

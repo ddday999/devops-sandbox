@@ -1,0 +1,47 @@
+stages:
+  - check
+  - compile
+  - deploy
+  - package
+
+
+variables:
+  DOCKERHUB_USER: username
+  NEW_IMAGE: ddday999/easy_bot
+
+
+default:
+  before_script:
+    - docker info
+
+
+#првоверка того, что используется верный телеграмм токен
+check:
+  stage: check
+  script: 
+    - grep -q "telebot.TeleBot('BOT_TOKEN')" bot.py
+
+
+#сборка и пуш в Dockerhub
+compile:
+  stage: compile
+  script: 
+      - docker build --no-cache -t "$NEW_IMAGE" .
+      - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASSWORD"
+      - docker push "$NEW_IMAGE":latest
+
+
+#применения yaml манифеста, который лежит в данной директории и деплой
+deploy:
+    stage: deploy
+    script:
+      - kubectl set image deployment/my-deployment -n=easy-bot-namespace easy-bot=ddday999/easy_bot:latest
+      - kubectl rollout restart deployment my-deployment -n=easy-bot-namespace
+
+#запаковка кода
+pack-gz:
+  stage: package
+  script: cat bot.py | gzip > packaged.gz
+  artifacts:
+    paths:
+    - packaged.gz
