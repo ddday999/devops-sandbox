@@ -1,4 +1,4 @@
-# Pet project by Kim Stanislav
+# Pet project by Kim Stanislav tg:@ddday999
 
 
 Technologies used: Docker, k3s, Grafana, Loki (Promtail), Prometheus, Gitlab, Gitlab-CI
