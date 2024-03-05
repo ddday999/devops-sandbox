@@ -27,4 +27,4 @@ Prometheus collecting info from host.
 Promtail parsing the simulated log to find any HTTP 400 response and sends to Grafana, which paint stat.
 ![image](https://github.com/ddday999/devops-sandbox/assets/119918462/f0dc3b58-8301-40d3-831d-7e20939b4afe)
 
-CI/CD configured with help of Gitlab-CI
+CI/CD configured with help of Gitlab-CI. When repo got the new commit, automatically starts pipeline (contains hidden variables). As the result - new version of code deploying without any service impact.
